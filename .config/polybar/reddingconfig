@@ -1,0 +1,332 @@
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/jaagr/polybar
+;
+;   The README contains alot of information
+;
+;=====================================================
+
+[colors]
+background = #99000000
+background-alt = #444
+foreground = ${xrdb: color1}
+foreground-alt = #f78026
+bg1 = ${xrdb: color0}
+bg2 = #f68028
+bg3 = #5c707b
+primary = #ffb52a
+secondary = #e60053
+alert = #ff2222
+
+[global/wm]
+margin-top = 5
+margin-bottom = 5
+
+[settings]
+; The throttle settings lets the eventloop swallow up til X events
+; if they happen within Y millisecond after first event was received.
+; This is done to prevent flood of update event.
+throttle-output = 5
+throttle-output-for = 10
+
+; Time in milliseconds that the input handler will wait between processing events
+throttle-input-for = 30
+
+; Reload upon receiving XCB_RANDR_SCREEN_CHANGE_NOTIFY events
+screenchange-reload = true
+
+[bar/base]
+dpi = 72
+bottom = false
+width = 100%
+height = 30
+offset-x = 0
+offset-y = 0
+background = ${colors.background}
+foreground = ${colors.foreground}
+spacing = 1
+padding-left = 0
+padding-right = 2
+module-margin-left = 1
+module-margin-right = 2
+font-0 = hack:pixelsize=12;2
+font-1 = unifont:size=10;2
+font-2 = siji:pixelsize=10;3
+font-3 = FontAwesome:pixelsize=14;2
+tray-position = left
+tray-padding = 3 
+
+[bar/top]
+inherit= bar/base
+
+modules-left = xwindow
+modules-center = i3
+modules-right = weather wlan battery date 
+
+[bar/bottom]
+inherit= bar/base
+bottom= true
+
+modules-left = cpu memory 
+modules-center = networkspeedup pkg networkspeeddown
+modules-right = coretemps filesystem volume
+
+;;;;;;;;;;;;;;;
+;;; Modules ;;;
+;;;;;;;;;;;;;;;
+
+[module/weather]
+type = custom/script
+interval  = 300 
+
+format-prefix = " "
+format-prefix-foreground = ${colors.bg1}
+exec = ~/.config/polybar/weather.sh
+
+[module/xwindow]
+type = internal/xwindow
+
+label = " %title:0:60:...%"
+format-prefix ="  "
+format-prefix-foreground = ${colors.bg1}
+
+[module/cmus]
+type = custom/script
+
+exec = sh ~/.config/polybar/cmus.sh
+exec-if = pgrep -x cmus
+interval = 1
+
+click-left = cmus-remote --pause
+click-right = cmus-remote --stop
+
+[module/filesystem]
+type = internal/fs
+interval = 25
+format-mounted = <label-mounted>
+format-mounted-prefix=" "
+format-mounted-prefix-foreground = ${colors.bg1}
+label-mounted = "%percentage_used%%"
+
+;Directory
+mount-0 = /
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+strip-wsnumbers = true
+
+label-mode = %mode%
+label-mode-padding = 2
+label-mode-foreground = #000
+label-mode-background = #000000
+
+label-focused =  
+label-focused-background = ${colors.background} 
+label-focused-foreground = ${colors.bg1}
+label-focused-underline = #00ffffff
+label-focused-padding = 2 
+
+label-unfocused = 
+label-unfocused-foreground = ${colors.bg1}
+label-unfocused-padding = 2 
+
+label-urgent = ⚠
+;label-urgent-background = ${colors.background} 
+label-urgent-foreground = ${colors.bg2}
+label-urgent-padding = 2 
+
+label-visible = %index%
+label-visible-background = ${self.label-focused-background}
+label-visible-underline = ${self.label-focused-underline}
+label-visible-padding = ${self.label-focused-padding}
+
+[module/github]
+type = internal/github
+token = ${env:GITHUB_TOKEN}
+
+label = "%notifications%"
+format-underline = #2aa198
+format-prefix = " "
+format-prefix-foreground = #
+
+[module/xbacklight]
+type = internal/xbacklight
+
+format = <ramp> <label>
+ramp-0 = 🌕
+ramp-1 = 🌔
+ramp-2 = 🌓
+ramp-3 = 🌒
+ramp-4 = 🌑
+ramp-foreground = ${colors.bg1}
+
+[module/backlight]
+inherit = module/xbacklight
+card = intel_backlight
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+format = <ramp-coreload>
+format-prefix = "  CPU "
+format-prefix-foreground = ${colors.bg1}
+
+label = %percentage%
+ramp-coreload-0 = %{F#5b}▁%{F-}
+ramp-coreload-1 = %{F#5b}▂%{F-}
+ramp-coreload-2 = %{F#5b}▃%{F-}
+ramp-coreload-3 = %{F#ff5c57}▄%{F-}
+ramp-coreload-4 = %{F#ff5c57}▅%{F-}
+ramp-coreload-5 = %{F#ff5c57}▆%{F-}
+ramp-coreload-6 = %{F#ff5c57}▇%{F-}
+ramp-coreload-7 = %{F#ff5c57}█%{F-}
+
+[module/memory]
+type = internal/memory
+interval = 2
+format = <label> <bar-used>
+format-prefix = " RAM "
+format-prefix-foreground = ${colors.bg1}
+
+bar-used-width = 30
+bar-used-foreground-0 = #5af78e
+bar-used-foreground-1 = #5af78e
+bar-used-foreground-2 = #f3f99d
+bar-used-foreground-3 = #ff5c57
+bar-used-fill = 
+bar-used-empty = 
+bar-used-empty-foreground = #444444
+bar-used-indicator =
+
+[module/wlan]
+type = internal/network
+interface = wlp3s0
+interval = 3.0
+
+format-connected = <label-connected>
+format-connected-prefix = " "
+format-connected-prefix-foreground = ${colors.bg1}
+
+label-connected = "%{A1:connman-gtk &:}%essid%%{A}"
+label-disconnected = "%{A1:connman-gtk &:}%{A}"
+label-disconnected-foreground = #5b
+
+ramp-signal-0 = 
+ramp-signal-1 = 
+ramp-signal-2 = 
+ramp-signal-3 = 
+ramp-signal-4 = 
+ramp-signal-foreground = ${colors.bg1}
+
+[module/networkspeedup]
+type = internal/network
+interface = wlp3s0
+label-connected = "%upspeed:7%"
+format-connected = <label-connected>
+format-connected-prefix = " "
+format-connected-prefix-foreground = ${colors.bg1} 
+
+[module/networkspeeddown]
+type = internal/network
+interface = wlp3s0
+label-connected = "%downspeed:7%"
+format-connected = <label-connected>
+format-connected-prefix = " "
+format-connected-prefix-foreground = ${colors.bg1}
+
+[module/date]
+type = internal/date
+interval = 1
+
+date = %D
+date-alt = %a %b %d, %Y
+
+time = %l:%M%P
+time-alt =  %H:%M:%S
+
+format-prefix = "⏰ " 
+format-prefix-foreground = ${colors.bg1}
+
+label = %date% %time%
+
+[module/volume]
+type = internal/volume
+master-soundcard = default 
+
+format-volume =  <bar-volume>
+format-volume-prefix = " "
+format-volume-foreground = ${colors.bg1}
+
+format-muted-prefix = "x "
+format-muted-foreground = ${colors.bg2}
+label-muted = muted
+
+bar-volume-width = 10
+bar-volume-foreground-0 = #5af78e
+bar-volume-foreground-1 = #5af78e
+bar-volume-foreground-2 = #5af78e
+bar-volume-foreground-3 = #5af78e
+bar-volume-foreground-4 = #5af78e
+bar-volume-foreground-5 = #f3f99d
+bar-volume-foreground-6 = #ff5c57
+bar-volume-gradient = false
+bar-volume-indicator = │
+bar-volume-indicator-font = 2
+bar-volume-indicator-foreground = ${colors.bg2}
+bar-volume-fill = ─
+bar-volume-fill-font = 2
+bar-volume-empty = ─
+bar-volume-empty-font = 2
+bar-volume-empty-foreground = ${colors.bg1}
+
+[module/battery]
+type = internal/battery
+battery = BAT1
+adapter = AC
+full-at = 92
+time-format = "%H:%M"
+
+label-charging = %percentage%
+label-discharging = "%percentage%% (%time%)"
+
+format-charging = <animation-charging> <label-charging>
+format-charging-foreground = ${xrdb: color0}
+format-discharging = <ramp-capacity> <label-discharging>
+
+format-full-prefix = " "
+format-full-prefix-foreground = green
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+ramp-capacity-foreground = ${colors.background}
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-foreground = ${colors.bg1}
+animation-charging-framerate = 750
+
+[module/coretemps]
+type = custom/script
+interval = 1
+exec-if = sensors
+exec = ~/.config/polybar/tempcores.sh
+
+[module/pkg]
+type = custom/script
+interval = 1200
+format = <label>
+label = "%output:0:30%"
+exec = .config/polybar/pkg.sh
+exec-if = "ping -q -w 2 -c 1 176.34.135.167 > /dev/null"
+; vim:ft=dosini
+; CHANGE THIS LINE TO UPDATE POLYBAR
+
+

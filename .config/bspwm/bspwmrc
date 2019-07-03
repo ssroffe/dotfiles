@@ -1,0 +1,45 @@
+#! /bin/sh
+
+sxhkd &
+xrdb ${HOME}/.Xresources ## colors
+#${HOME}/.screenlayout/triplescreen.sh
+compton & ## Transparency
+wal -R ## Reload colors
+polybar -r top &
+nm-applet & ##Network manager on bar
+dropbox start &
+polybar -r bottom &
+redshift -l 40:-80 & ##Redshift for Pittsburgh
+xss-lock -- i3lock -c 111111 &
+
+# wal
+. "${HOME}/.cache/wal/colors.sh"
+#set border color
+bspc config normal_border_color "$color1"
+bspc config active_border_color "$color2"
+bspc config focused_border_color "$color15"
+bspc config presel_feedback_color "$color1"
+
+bspc config pointer_action1 resize_side
+bspc config pointer_action1 resize_corner
+bspc config pointer_action3 move
+
+
+#bspc monitor -d 1 2 3 4 5 6 7 8 9
+bspc monitor -d 1
+
+bspc config border_width         2
+bspc config window_gap          12
+
+## Alt instead of super
+bspc config pointer_modifier mod2
+
+bspc config split_ratio          0.52
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+
+bspc rule -a Gimp desktop='^8' state=floating follow=on
+bspc rule -a Chromium desktop='^2'
+bspc rule -a mplayer2 state=floating
+bspc rule -a Kupfer.py focus=on
+bspc rule -a Screenkey manage=off
