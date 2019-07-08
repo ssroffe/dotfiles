@@ -11,6 +11,7 @@ Plugin 'itchyny/lightline.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'tpope/vim-surround'
+Plugin 'valloric/youcompleteme'
 call vundle#end()
 
 filetype plugin indent on
@@ -88,6 +89,11 @@ let g:NERDSpaceDelims = 1
 let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
 let g:NERDToggleCheckAllLines = 1
+
+" Auto run test code
+" Run python with <F12>
+autocmd FileType python nnoremap <buffer> <F12> :exec '!python' shellescape(@%,1)<cr>
+
 
 set clipboard=unnamedplus
 set laststatus=2
