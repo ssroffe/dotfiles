@@ -13,6 +13,7 @@ Plugin 'itchyny/lightline.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-repeat'
 Plugin 'valloric/youcompleteme'
 call vundle#end()
 
@@ -95,8 +96,11 @@ let g:NERDToggleCheckAllLines = 1
 "" Auto run test code
 " Run python with <F12>
 autocmd FileType python nnoremap <buffer> <F12> :exec '!python' shellescape(@%,1)<cr>
-" Run make with <F12>
-autocmd FileType c nnoremap <buffer> <F12> :exec '!make' shellescape(@%,1)<cr>
+" Run make with <F12> allow for added commands after
+autocmd FileType c nnoremap <buffer> <F12> :exec '!make'
+autocmd FileType make nnoremap <buffer> <F12> :exec '!make'
+" Javascript
+autocmd FileType javascript nnoremap <buffer> <F12> :exec '!node' shellescape(@%,1)<cr>
 
 
 set clipboard=unnamedplus
