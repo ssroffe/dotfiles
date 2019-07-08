@@ -2,6 +2,8 @@
 set nocompatible
 filetype off
 
+" Run :PluginInstall to install things
+" For youcompleteme, run .vim/bundle/youcompleteme/install.py
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
@@ -90,9 +92,11 @@ let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
 let g:NERDToggleCheckAllLines = 1
 
-" Auto run test code
+"" Auto run test code
 " Run python with <F12>
 autocmd FileType python nnoremap <buffer> <F12> :exec '!python' shellescape(@%,1)<cr>
+" Run make with <F12>
+autocmd FileType c nnoremap <buffer> <F12> :exec '!make' shellescape(@%,1)<cr>
 
 
 set clipboard=unnamedplus
