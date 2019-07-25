@@ -1,0 +1,19 @@
+#!/bin/bash
+desktops=$(bspc query -D --names)
+binDesktop=$(bspc query --desktops)
+newDesktop=$1
+
+if [[ $desktops == *${newDesktop}* ]]; then
+    bspc node -d $newDesktop -f
+else
+    bspc monitor -d $desktops $newDesktop
+    bspc node -d $newDesktop -f
+fi
+
+## Remove empty desktops ##
+oldDesktop=$(bspc query -D -d last)
+numNodes=$(bspc query -N -d ${oldDesktop} | grep -f <(bspc query -N -n .leaf) | wc -l)
+echo $numNodes
+if [ $numNodes = "0" ]; then
+    bspc desktop $oldDesktop --remove
+fi

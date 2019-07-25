@@ -115,11 +115,11 @@ alt + {o,i}
 	bspc wm -h on
 
 alt + {1-9,0}
-    /home/seth/Projects/scripts/bspcNewMonitor '{1-9,10}'
+    ~/.config/sxhkd/bspcNewMonitor '{1-9,10}'
 # focus or send to the given desktop
 #alt + {_,shift + }{1-9,0}
 alt + shift + {1-9,0}
-    /home/seth/Projects/scripts/bspcSwapMonitor '{1-9,10}'
+    ~/.config/sxhkd/bspcSwapMonitor '{1-9,10}'
 
 alt + {_,shift + } r
 	bspc node @/ -R {90,270}
