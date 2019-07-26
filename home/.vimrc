@@ -102,6 +102,7 @@ autocmd FileType c nnoremap <buffer> <F12> :exec '!make'
 autocmd FileType make nnoremap <buffer> <F12> :exec '!make'
 " Javascript
 autocmd FileType javascript nnoremap <buffer> <F12> :exec '!node' shellescape(@%,1)<cr>
+autocmd FileType sh nnoremap <buffer> <F12> :exec '!bash' shellescape(@%,1)<cr>
 
 
 set clipboard=unnamedplus

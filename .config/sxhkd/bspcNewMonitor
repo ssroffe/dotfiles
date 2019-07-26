@@ -14,7 +14,19 @@ fi
 ## Remove empty desktops ##
 oldDesktop=$(bspc query -D -d last)
 numNodes=$(bspc query -N -d ${oldDesktop} | grep -f <(bspc query -N -n .leaf) | wc -l)
-echo $numNodes
 if [ $numNodes = "0" ]; then
     bspc desktop $oldDesktop --remove
 fi
+
+## Make sure desktop numbers are in order ##
+currName=$(bspc query -D --names -d focused)
+currDesk=$(bspc query -D -d focused)
+desk1=$(bspc query -D --names -d 0x00400009.local)
+minDesk=$(echo $(bspc query -D --names | sort) | cut -d" " -f1)
+while [ ${currName} -lt $(bspc query -D --names -d prev) ]; do
+    ## Check if you are the minimum and first one ##
+    if [ ${currName} -eq ${minDesk} ] && [ "${currDesk}" = "$(bspc query -D | head -n 1)" ]; then
+        break
+    fi
+    bspc desktop --bubble prev
+done

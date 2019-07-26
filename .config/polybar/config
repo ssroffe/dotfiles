@@ -66,7 +66,7 @@ font-4 = Font Awesome 5 Brands:fontformat=truetype:size=9;1
 modules-left = bspwm xwindow
 modules-center = calendar date 
 ;modules-right = pavolume battery wlan
-modules-right = pavolume battery battery2
+modules-right = xbacklight pavolume battery battery2
 
 tray-position = right
 tray-padding = 9
@@ -466,8 +466,6 @@ inherit = module/app
 content = 
 click-left = zenity --calendar &
 
-; vim:ft=dosini
-
 [module/spotify]
 type = custom/script
 interval = 1
@@ -477,3 +475,5 @@ format = <label>
 exec = python ~/.config/polybar/spotify/spotifyScript.py -p
 click-left = python ~/.config/polybar/spotify/playPause.py
 format-underline = #1db954
+
+; vim:ft=dosini
