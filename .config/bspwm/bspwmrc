@@ -5,10 +5,9 @@ xrdb ${HOME}/.Xresources ## colors
 #${HOME}/.screenlayout/triplescreen.sh
 compton & ## Transparency
 wal -R ## Reload colors
-polybar -r top &
 nm-applet & ##Network manager on bar
 dropbox start &
-polybar -r bottom &
+${HOME}/.config/polybar/launch.sh 
 redshift -l 40:-80 & ##Redshift for Pittsburgh
 xss-lock -- i3lock -c 111111 &
 
@@ -30,6 +29,11 @@ bspc config click_to_focus true
 
 #bspc monitor -d 1 2 3 4 5 6 7 8 9
 bspc monitor -d 1
+mCount=1
+for i in $(bspc query -M --names); do
+    bspc monitor $i -d $mCount
+    mCount=$((mCount+1))
+done
 
 bspc config border_width         2
 bspc config window_gap          12

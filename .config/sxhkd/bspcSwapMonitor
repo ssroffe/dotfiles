@@ -2,11 +2,12 @@
 desktops=$(bspc query -D --names)
 binDesktop=$(bspc query --desktops)
 newDesktop=$1
+currMonitor=$(bspc query -M -m focused)
 
 if [[ $desktops == *${newDesktop}* ]]; then
     bspc node -d $newDesktop -f
 else
-    bspc monitor -d $desktops $newDesktop
+    bspc monitor $currMonitor -a $newDesktop
     bspc node -d $newDesktop -f
 fi
 

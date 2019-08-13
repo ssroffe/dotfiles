@@ -2,12 +2,13 @@
 desktops=$(bspc query -D --names) ##all desktops
 binDesktop=$(bspc query --desktops)
 newDesktop=$1
+currMonitor=$(bspc query -M -m focused)
 
 ## Add new desktop if doesn't exist, focus if does ##
 if [[ $desktops == *${newDesktop}* ]]; then
     bspc desktop -f $newDesktop
 else
-    bspc monitor -d $desktops $newDesktop
+    bspc monitor $currMonitor -a $newDesktop
     bspc desktop -f $newDesktop
 fi
 
