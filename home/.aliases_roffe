@@ -2,13 +2,21 @@ function aurget {
     sudo curl -L -O https://aur.archlinux.org/cgit/aur.git/snapshot/${1}.tar.gz
 }
 function get {
-    sudo apt install "$1";
-    #sudo pacman -S "$1";
+    which pacman >/dev/null 2>&1
+    if [ $? -eq 0 ]; then
+        sudo pacman -S "$1";
+    else
+        sudo apt install "$1";
+    fi
     sudo updatedb &
 }
 function update {
-    sudo apt update;
-    #sudo pacman -Syu;
+    which pacman >/dev/null 2>&1
+    if [ $? -eq 0 ]; then
+        sudo pacman -Syu;
+    else
+        sudo apt update;
+    fi
     sudo updatedb &
 }
 function upgrade {
@@ -16,8 +24,12 @@ function upgrade {
     sudo updatedb &
 }
 function unget {
-    sudo apt purge "$1";
-    #sudo pacman -Rsn "$1";
+    which pacman >/dev/null 2>&1
+    if [ $? -eq 0 ]; then
+        sudo pacman -Rsn "$1";
+    else
+        sudo apt purge "$1";
+    fi
     sudo updatedb &
 }
 function vd {
