@@ -16,7 +16,7 @@ for dir in * .[^.]*; do
             for f in $configs; do
                 echo "Linking ${f}..."
                 if [ -d "~/.oh-my.zsh" ]; then
-                    ln -s ${PWD}/${dir}/${f} ~/${dir}/themes/
+                    ln -sf ${PWD}/${dir}/${f} ~/${dir}/themes/
                 fi
             done
 
@@ -25,7 +25,7 @@ for dir in * .[^.]*; do
             configs=$(ls -A $dir)
             for f in $configs; do
                 echo "Linking ${f}..."
-                ln -s ${PWD}/${dir}/${f} ~/
+                ln -sf ${PWD}/${dir}/${f} ~/
             done
 
         else
@@ -33,7 +33,7 @@ for dir in * .[^.]*; do
             configs=$(ls -A $dir)
             for f in $configs; do
                 echo "Linking ${f}..."
-                ln -s ${PWD}/${dir}/${f} ~/${dir}/
+                ln -sf ${PWD}/${dir}/${f} ~/${dir}/
             done
         fi
 
