@@ -2,6 +2,27 @@
 set nocompatible
 filetype off
 
+" START - Setting up Vundle - the vim plugin bundler
+let iCanHazVundle=1
+let vundle_readme=expand('~/.vim/bundle/Vundle.vim/README.md')
+if !filereadable(vundle_readme)
+  echo "Installing Vundle.."
+  echo ""
+  silent !mkdir -p ~/.vim/bundle
+  silent !git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+  let iCanHazVundle=0
+endif
+set rtp+=~/.vim/bundle/Vundle.vim/
+call vundle#rc()
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+if iCanHazVundle == 0
+  echo "Installing Bundles, please ignore key map error messages"
+  echo ""
+  :PluginInstall
+endif
+" END - Setting up Vundle - the vim plugin bundler
 " Run :PluginInstall to install things
 " For youcompleteme, run .vim/bundle/youcompleteme/install.py
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -21,7 +42,7 @@ filetype plugin indent on
 
 "" DONE WITH VUNDLE PLUGIN STUFF
 
-colorscheme wal
+"colorscheme wal
 let g:python_highlight_all = 1
 
 " set new c syntax highlighting
