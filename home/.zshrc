@@ -92,7 +92,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-export PATH=$PATH:~/Projects/scripts
+export PATH=$PATH:~/Projects/scripts:${HOME}/.local/bin/
 export EDITOR=vim
 source ~/.aliases_roffe
 (cat /home/seth/.cache/wal/sequences)
