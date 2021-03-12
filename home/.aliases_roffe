@@ -40,8 +40,8 @@ function cd {
     pwd > ~/.last_dir
 }
 alias ld='cd $( cat ~/.last_dir )'
-#alias .='nautilus --no-desktop . &> /dev/null &'
-alias .='thunar . &> /dev/null &'
+alias .='nautilus . &> /dev/null &'
+#alias .='thunar . &> /dev/null &'
 alias fuck='pkill'
 alias please='sudo $( fc -ln -1)'
 alias lst='ls -lt | more'
@@ -55,7 +55,7 @@ alias rb='rm *~'
 alias pdf='evince'
 alias screenshot='scrot -s ~/photos/screenshots/%b%d-%H%M%S.png'
 alias display='mirage'
-alias r='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`'
+alias r='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd ${LASTDIR}'
 alias usrmount='sudo mount -o gid=users,fmask=113,dmask=002'
 alias shrecvnc='ssh -Y shrec -L 5903:localhost:5903'
 
