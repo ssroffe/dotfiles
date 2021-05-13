@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sudo apt install ranger rofi vim-gtk
+sudo apt install ranger rofi vim-gtk cmake
