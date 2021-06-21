@@ -24,6 +24,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-abolish'
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 call plug#end()
 
 if plug_install
