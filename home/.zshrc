@@ -98,4 +98,4 @@ export PATH=$PATH:~/Projects/scripts:${HOME}/.local/bin/:${HOME}/.cargo/bin
 export EDITOR=nvim
 export VISUAL=nvim
 source ~/.aliases_roffe
-(cat /home/seth/.cache/wal/sequences)
+#(cat /home/seth/.cache/wal/sequences)
