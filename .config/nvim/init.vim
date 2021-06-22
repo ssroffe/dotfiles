@@ -133,6 +133,7 @@ noremap <leader>7 7gt
 noremap <leader>8 8gt
 noremap <leader>9 9gt
 noremap <leader>0 :tablast<cr>
+noremap <leader>t :tabnew<cr>
 
 set clipboard+=unnamedplus
 set laststatus=2
