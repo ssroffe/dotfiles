@@ -25,6 +25,7 @@ Plug 'tpope/vim-repeat'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-abolish'
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+Plug 'ludovicchabant/vim-gutentags'
 call plug#end()
 
 if plug_install
@@ -135,6 +136,11 @@ noremap <leader>9 9gt
 noremap <leader>0 :tablast<cr>
 noremap <leader>t :tabnew<cr>
 
+" Commenter toggle
+nmap <C-_> <leader>c<space>
+vmap <C-_> <leader>c<space>
+
+
 " Coc.vim stuff
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -147,3 +153,5 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 set clipboard+=unnamedplus
 set laststatus=2
+set notermguicolors
+let g:gutentags_enabled = 1
