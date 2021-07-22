@@ -155,3 +155,7 @@ set clipboard+=unnamedplus
 set laststatus=2
 set notermguicolors
 let g:gutentags_enabled = 1
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
