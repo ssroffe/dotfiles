@@ -6,5 +6,5 @@ if [ $? -eq 0 ]; then
     sudo pacman -S ranger rofi neovim cmake nodejs
 else
     sudo apt update
-    sudo apt install ranger rofi nvim cmake
+    sudo apt install ranger rofi neovim cmake
 fi
