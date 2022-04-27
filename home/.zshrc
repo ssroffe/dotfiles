@@ -97,5 +97,5 @@ source $ZSH/oh-my-zsh.sh
 export PATH=$PATH:~/Projects/scripts:${HOME}/.local/bin/:${HOME}/.cargo/bin
 export EDITOR=nvim
 export VISUAL=nvim
-source ~/.aliases_roffe
+source ~/.aliases
 #(cat /home/seth/.cache/wal/sequences)
