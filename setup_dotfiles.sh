@@ -2,7 +2,7 @@
 
 CONFIG=${HOME}/.config/
 cd home
-cp .aliases_roffe ${HOME}/
+cp .aliases ${HOME}/
 cp .vimrc ${HOME}/
 cp .tmux.conf ${HOME}/
 cp .zshrc ${HOME}/
